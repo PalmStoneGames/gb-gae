@@ -68,7 +68,7 @@ func run(ctx *gb.Context, args []string) error {
 
 	// Build up the fake env
 	env := cmd.MergeEnv(os.Environ(), map[string]string{
-		"GOPATH": fmt.Sprintf("%s%s%s", path.Join(projectRoot, "src"), string(os.PathListSeparator), path.Join(projectRoot, "vendor", "src")),
+		"GOPATH": fmt.Sprintf("%s%s%s", projectRoot, string(os.PathListSeparator), path.Join(projectRoot, "vendor")),
 	})
 
 	// Switch on the subcommand
