@@ -39,6 +39,7 @@ The commands are:
 	serve		starts a local development App Engine server
 	deploy		deploys your application to App Engine
 	build		compile packages and dependencies
+	test		test packages
 	raw		Directly call the dev_appserver.py
 `
 
@@ -53,8 +54,7 @@ func main() {
 	fs.BoolVar(&gb.Verbose, "v", gb.Verbose, "enable log levels below INFO level")
 
 	err := cmd.RunCommand(fs, &cmd.Command{
-		ShortDesc: "",
-		Run:       run,
+		Run: run,
 	}, os.Getenv("GB_PROJECT_DIR"), "", os.Args[1:])
 	if err != nil {
 		fmt.Printf("%v\n", err)
@@ -73,7 +73,7 @@ func run(ctx *gb.Context, args []string) error {
 
 	// Switch on the subcommand
 	switch args[0] {
-	case "serve", "deploy", "build":
+	case "serve", "deploy", "build", "test":
 		return goapp(ctx, args, env)
 	case "raw":
 		return raw(ctx, args, env)
