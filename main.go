@@ -26,6 +26,7 @@ import (
 
 	"github.com/constabulary/gb"
 	"github.com/constabulary/gb/cmd"
+	"github.com/constabulary/gb/log"
 )
 
 const DocUsage = `gb gae is a tool for managing Google Appengine applications with gb.
@@ -51,7 +52,7 @@ func main() {
 	// Setup flags
 	fs := flag.NewFlagSet("gb-gae", flag.ExitOnError)
 	fs.StringVar(&projectRoot, "R", os.Getenv("GB_PROJECT_DIR"), "set the project root")
-	fs.BoolVar(&gb.Verbose, "v", gb.Verbose, "enable log levels below INFO level")
+	fs.BoolVar(&log.Verbose, "v", log.Verbose, "enable log levels below INFO level")
 
 	err := cmd.RunCommand(fs, &cmd.Command{
 		Run: run,
