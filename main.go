@@ -59,6 +59,7 @@ func main() {
 	}, os.Getenv("GB_PROJECT_DIR"), "", os.Args[1:])
 	if err != nil {
 		fmt.Printf("%v\n", err)
+		os.Exit(1)
 	}
 }
 
