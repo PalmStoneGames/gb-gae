@@ -41,7 +41,8 @@ The commands are:
 	deploy		deploys your application to App Engine
 	build		compile packages and dependencies
 	test		test packages
-	raw		Directly call the dev_appserver.py
+	raw			Directly call the dev_appserver.py
+	appcfg		Directly call the appcfg.py
 `
 
 var (
@@ -79,6 +80,8 @@ func run(ctx *gb.Context, args []string) error {
 		return goapp(ctx, args, env)
 	case "raw":
 		return raw(ctx, args, env)
+	case "appcfg":
+		return appcfg(ctx, args, env)
 	default:
 		return fmt.Errorf("Unknown subcommand: %s\n\n%v", args[0], DocUsage)
 	}
@@ -107,6 +110,20 @@ func raw(ctx *gb.Context, args []string, env []string) error {
 
 	if err := app.Run(); err != nil {
 		return fmt.Errorf("Failed to run dev_appserver.py: %v", err)
+	}
+
+	return nil
+}
+
+func appcfg(ctx *gb.Context, args []string, env []string) error {
+	app := exec.Command("appcfg.py", args[1:]...)
+	app.Stdin = os.Stdin
+	app.Stdout = os.Stdout
+	app.Stderr = os.Stderr
+	app.Env = env
+
+	if err := app.Run(); err != nil {
+		return fmt.Errorf("Failed to run appcfg.py: %v", err)
 	}
 
 	return nil
