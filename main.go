@@ -38,6 +38,7 @@ The commands are:
 
 	serve		starts a local development App Engine server
 	deploy		deploys your application to App Engine
+	gcloud-deploy	deploys your application to App Engine with the newer 'gcloud' command.
 	build		compile packages and dependencies
 	test		test packages
 	raw			Directly call the dev_appserver.py
@@ -76,6 +77,8 @@ func run(ctx *gb.Context, args []string) error {
 	switch args[0] {
 	case "serve", "deploy", "build", "test":
 		return goapp(ctx, args, env)
+	case "gcloud-deploy":
+		return gcloud(ctx, args, env)	
 	case "raw":
 		return raw(ctx, args, env)
 	case "appcfg":
@@ -94,6 +97,20 @@ func goapp(ctx *gb.Context, args []string, env []string) error {
 
 	if err := app.Run(); err != nil {
 		return fmt.Errorf("Failed to run goapp command: %v", err)
+	}
+
+	return nil
+}
+
+func gcloud(ctx *gb.Context, args []string, env []string) error {
+	app := exec.Command("cloud", args...)
+	app.Stdin = os.Stdin
+	app.Stdout = os.Stdout
+	app.Stderr = os.Stderr
+	app.Env = env
+
+	if err := app.Run(); err != nil {
+		return fmt.Errorf("Failed to run gcloud command: %v", err)
 	}
 
 	return nil
