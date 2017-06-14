@@ -38,11 +38,11 @@ The commands are:
 
 	serve		starts a local development App Engine server
 	deploy		deploys your application to App Engine
-	gcloud-deploy	deploys your application to App Engine with the newer 'gcloud' command.
 	build		compile packages and dependencies
 	test		test packages
-	raw			Directly call the dev_appserver.py
+	raw		Directly call the dev_appserver.py
 	appcfg		Directly call the appcfg.py
+	gcloud		Directly call the gcloud command.
 `
 
 var (
@@ -77,12 +77,12 @@ func run(ctx *gb.Context, args []string) error {
 	switch args[0] {
 	case "serve", "deploy", "build", "test":
 		return goapp(ctx, args, env)
-	case "gcloud-deploy":
-		return gcloud(ctx, args, env)	
 	case "raw":
 		return raw(ctx, args, env)
 	case "appcfg":
 		return appcfg(ctx, args, env)
+	case "gcloud":
+		return gcloud(ctx, args, env)
 	default:
 		return fmt.Errorf("Unknown subcommand: %s\n\n%v", args[0], DocUsage)
 	}
