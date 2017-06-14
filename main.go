@@ -103,7 +103,7 @@ func goapp(ctx *gb.Context, args []string, env []string) error {
 }
 
 func gcloud(ctx *gb.Context, args []string, env []string) error {
-	app := exec.Command("cloud", args...)
+	app := exec.Command("gcloud", args...)
 	app.Stdin = os.Stdin
 	app.Stdout = os.Stdout
 	app.Stderr = os.Stderr
