@@ -2,14 +2,18 @@ Gb GAE
 ======
 
 gb gae is a plugin for gb that adds basic project awareness for appengine applications.
+
 It adds the following commands to gb:
 
 	serve		starts a local development App Engine server
 	deploy		deploys your application to App Engine
 	build		compile packages and dependencies
+	test		test packages
 	raw		Directly call the dev_appserver.py
+	appcfg		Directly call the appcfg.py
+	gcloud		Directly call the gcloud command.
 
-goapp and dev_appserver.py are automatically wrapped and the correct environment variables are passed to them to make them aware of the project
+goapp, dev_appserver.py etc are automatically wrapped and the correct environment variables are passed to them to make them aware of the project
 
 Contribute
 ==========
